@@ -4,5 +4,7 @@ module.exports = {
   semi: false,
   singleQuote: true,
   endOfLine: 'crlf',
-  noEval: false
+  bracketSameLine: true,
+  bracketSpacing: false,
+  printWidth: 100
 }

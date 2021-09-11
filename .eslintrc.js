@@ -1,5 +1,5 @@
 module.exports = {
-  // 'no-eval': ['error', { allowIndirect: true }],
+  'brace-style': ['error', 'stroustrup'],
   env: {
     browser: true,
     es2021: true
