@@ -20,22 +20,27 @@ const Calculator = () => {
 
   const handleNumber = (value) => {
     if (number.includes('.') && value === '.') return
-    setNumber(number + value)
-    setIsExpression(false)
-    setOps('')
-    handleInput(value)
+    if (!operator && isExpression) {
+      setOps('')
+      setIsExpression('')
+      setNumber(value)
+      setInput(value)
+    } else {
+      setNumber(number + value)
+      setOps('')
+      handleInput(value)
+      setIsExpression(false)
+    }
   }
 
   const handleOprs = (op) => {
-    if (input === '0' || operator || isExpression) return
-    setIsExpression(false)
+    if (input === '0' || operator) return
     setOps(op)
-    setNumber('')
     handleInput(op)
   }
 
   const handleInput = (value) => {
-    input === '0' || isExpression ? setInput(value) : setInput(input + value)
+    input === '0' || (isExpression && number) ? setInput(value) : setInput(input + value)
   }
 
   const onDelete = () => {
@@ -49,9 +54,12 @@ const Calculator = () => {
     try {
       if (input !== 0 && input) {
         setIsExpression(true)
-        setInput(
-          opsBtns.includes(input.slice(-1)) ? mexp.eval(input.slice(0, -1)) : mexp.eval(input)
-        )
+        setOps('')
+        setNumber('')
+        const result = opsBtns.includes(input.slice(-1))
+          ? mexp.eval(input.slice(0, -1))
+          : mexp.eval(input)
+        setInput(result)
       }
     } catch (e) {
       setInput('ERROR')
